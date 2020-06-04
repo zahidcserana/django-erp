@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    url(r'^login/$','django.contrib.auth.views.login', {'template_name': '/login.html'}),
+    # url(r'^login/$','django.contrib.auth.views.login', {'template_name': '/login.html'}),
     path("", include("dashboard.urls")),
     path("employee/", include("employee.urls")),
     path("admin/", admin.site.urls),
