@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block page_content %}
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                Dashboard
+            </h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+											<span class="m-nav__link-text">
+												Dashboard
+											</span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+											<span class="m-nav__link-text">
+												Manage Orders
+											</span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+											<span class="m-nav__link-text">
+												Latest Orders
+											</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="m-portlet m-portlet--tab">
+        <form class="m-form m-form--fit m-form--label-align-right" action="/employee/add" method="post">
+            <div class="m-portlet__body row">
+                {% csrf_token %}
+                <div class="form-group m-form__group col-md-6">
+                    {{ form.name.errors }}
+                    <label for="{{ form.name.id_for_label }}">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group m-form__group col-md-6">
+                    {{ form.email.errors }}
+                    <label for="{{ form.email.id_for_label }}">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group m-form__group col-md-6">
+                    {{ form.mobile.errors }}
+                    <label for="{{ form.mobile.id_for_label }}">Mobile</label>
+                    {{ form.mobile }}
+                </div>
+                <div class="form-group m-form__group col-md-6">
+                    {{ form.address.errors }}
+                    <label for="{{ form.address.id_for_label }}">Address</label>
+                    {{ form.address }}
+                </div>
+                <div class="form-group m-form__group col-md-6">
+                    {{ form.about.errors }}
+                    <label for="{{ form.about.id_for_label }}">About</label>
+                    {{ form.about }}
+                </div>
+            </div>
+            <div class="m-portlet__foot m-portlet__foot--fit">
+                <div class="m-form__actions">
+                    <button type="submit" class="btn btn-brand">
+                        Submit
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
