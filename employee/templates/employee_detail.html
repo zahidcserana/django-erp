@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block page_content %}
 {% load static %}
-
+{% load myapptags %}
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
         <div class="mr-auto">
@@ -117,7 +117,7 @@
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
                 <div class="m-form__actions">
-                    <a href="{% url 'employee_index' %}" class="btn btn-warning">
+                    <a href="{% url 'employee_index' %}" class="{{ 'back'|button }}">
                         <div class="m-demo-icon__preview"><i class="fa fa-chevron-left"></i></div>
                     </a>
                     <button type="submit" class="btn btn-brand">Submit</button>
