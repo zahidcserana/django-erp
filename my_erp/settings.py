@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'commontag',
     'dashboard',
-    'employee'
+    'employee',
+    'department'
 ]
 
 MIDDLEWARE = [
