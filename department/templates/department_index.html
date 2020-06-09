@@ -54,9 +54,7 @@
 
         <div class="m-portlet__body">
 
-
-            <form class="form-inline m-form m-form--fit row" action="/department/"
-                  method="post">
+            <!--<form class="form-inline m-form m-form&#45;&#45;fit row" action="/department/" method="post">
                 {% csrf_token %}
                 <div class="form-group mb-4">
                     <label for="inputPassword2">Department:</label>
@@ -66,7 +64,62 @@
                     {{ form.name }}
                 </div>
                 <button type="submit" class="btn btn-primary mx-sm-3 mb-2">Submit</button>
+            </form>-->
+            <form style="flex: 1" action="{% url 'department_index' %}" method="post">
+                {% csrf_token %}
+                <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-8 order-2 order-xl-1">
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-1">
+                                    <div class="m-form__group m-form__group--inline" style="width: 100%">
+                                        <label for="inputPassword2">Name:</label>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="m-form__group m-form__group--inline" style="width: 100%">
+                                        <div class="m-form__control">
+                                            {{ form.name.errors }}
+                                            {{ form.name }}
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div class="m-form__group m-form__group--inline" style="width: 100%">
+                                        <label for="inputPassword2">Status:</label>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="m-form__group m-form__group--inline" style="width: 100%">
+                                        <div class="m-form__control">
+                                            {{ form.status.errors }}
+                                            {{ form.status }}
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="submit"
+                                            class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                            <a href="{% url 'employee_index' %}"
+                               class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                <span><i class="la la-list"></i><span>Employee List</span></span>
+                            </a>
+                            <div class="m-separator m-separator--dashed d-xl-none"></div>
+                        </div>
+                    </div>
+                </div>
             </form>
+
 
             <div class="m-datatable m-datatable--default m-datatable--brand m-datatable--loaded" id="">
                 <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
@@ -126,7 +179,7 @@
                         </td>
                         <td data-field="Actions" class="m-datatable__cell">
                             <span style="width: 126px;">
-                                <a href="{% url 'employee_detail' pk=item.id %}"
+                                <a onclick="view({{item.id}},'{{ item.name }}')"
                                    class="btn m-btn--pill btn-outline-warning">
                                     <span>
                                         <i class="la la-edit"></i>
@@ -148,7 +201,19 @@
         </div>
     </div>
 </div>
-{% endblock %}
 
+<script type="text/javascript">
+
+   function view(id, name) {
+        console.log(id, name)
+        $("#id_name").val(name)
+        $("#department_id").val(id)
+    }
+
+
+
+
+</script>
+{% endblock %}
 
 

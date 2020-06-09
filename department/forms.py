@@ -4,6 +4,9 @@ from .models import Department
 
 
 class DepartmentForm(forms.ModelForm):
+    id = forms.IntegerField(
+        required=False
+    )
     name = forms.CharField(
         max_length=255,
         widget=forms.TextInput(attrs={
@@ -21,4 +24,4 @@ class DepartmentForm(forms.ModelForm):
 
     class Meta:
         model = Department
-        fields = ['name', 'status']
+        fields = ['id', 'name', 'status']

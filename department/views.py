@@ -14,11 +14,16 @@ def department_index(request):
     if request.method == 'POST':
         form = DepartmentForm(request.POST)
         if form.is_valid():
-            input_data = Department(
-                name=form.cleaned_data["name"],
-                status=form.cleaned_data["status"],
-            )
-            input_data.save()
+            if form.cleaned_data['id']:
+                model_data = Department.objects.get(id=form.cleaned_data['id'])
+                model_data.name = form.cleaned_data["name"]
+                model_data.save()
+            else:
+                input_data = Department(
+                    name=form.cleaned_data["name"],
+                    status=form.cleaned_data["status"],
+                )
+                input_data.save()
             return redirect('department_index')
 
     context = {
