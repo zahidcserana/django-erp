@@ -14,12 +14,12 @@ class DepartmentForm(forms.ModelForm):
             "placeholder": "Your Name"
         })
     )
-
-    status = forms.CharField(
-        required=False,
+    Statuses = (('ACTIVE', 'Active'),('INACTIVE', 'Inactive'),)
+    status = forms.ChoiceField(
         widget=forms.Select(attrs={
             "class": "form-control m-input m-input--air m-input--pill",
-        })
+        }),
+        choices=Statuses
     )
 
     class Meta:
