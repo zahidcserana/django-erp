@@ -1,0 +1,50 @@
+<div class="main-img-preview">
+    <img class="thumbnail img-preview" src="{{ employee.user_image }}" title="Preview Logo">
+    <a class="btn btn-accent m-btn m-btn--icon m-btn--icon-only"
+       id="picture_change"><i class="fa flaticon-attachment" aria-hidden="true"></i>
+    </a>
+</div>
+<div class="input-group">
+    <input id="fakeUploadLogo" class="form-control fake-shadow" placeholder="Choose File"
+           disabled="disabled">
+    <div class="input-group-btn">
+        <div class="fileUpload btn btn-danger fake-shadow">
+            <span><i class="glyphicon glyphicon-upload"></i> Upload Logo</span>
+            {{ form.image }}
+        </div>
+        <div class="btn btn-warning cancel">
+            <span><i class="glyphicon glyphicon-upload"></i> Cancel</span>
+        </div>
+    </div>
+</div>
+<style>
+    .fake-shadow, .thumbnail {
+        border-radius: 2px;
+    }
+    .btn-danger {
+        background-color: #B73333;
+    }
+
+    /* File Upload */
+    .fake-shadow {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    .fileUpload {
+        position: relative;
+        overflow: hidden;
+    }
+    .fileUpload #id_image {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 33px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    .img-preview {
+        max-width: 30%;
+    }
+</style>

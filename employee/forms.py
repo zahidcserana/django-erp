@@ -37,15 +37,21 @@ class EmployeeForm(forms.ModelForm):
             "placeholder": ""
         })
     )
-
     image = forms.ImageField(
         required=False,
         widget=forms.FileInput(attrs={
-            "class": "form-control m-input m-input--air m-input--pill",
+            "class": "attachment_upload",
             "placeholder": "Select a file"
         })
+    )
+    Statuses = (('ACTIVE', 'Active'), ('INACTIVE', 'Inactive'),)
+    status = forms.ChoiceField(
+        widget=forms.Select(attrs={
+            "class": "form-control m-input m-input--air m-input--pill",
+        }),
+        choices=Statuses
     )
 
     class Meta:
         model = Employee
-        fields = ['name', 'email', 'mobile', 'address', 'about', 'image']
+        fields = ['name', 'email', 'mobile', 'address', 'about', 'image', 'status']

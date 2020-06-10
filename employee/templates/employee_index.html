@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block page_content %}
+{% load myapptags %}
+
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
         <div class="mr-auto">
@@ -206,8 +208,7 @@
                         </td>
                         <td data-field="Status" class="m-datatable__cell">
 						<span style="width: 126px;">
-							<span
-                                    class="m-badge  m-badge--success m-badge--wide">{{ item.status }}</span>
+							<span class="{{ item.status|status_class }}">{{ item.status }}</span>
 						</span>
                         </td>
                         <td data-field="Currency" class="m-datatable__cell">
@@ -219,16 +220,13 @@
                         <td data-field="Actions" class="m-datatable__cell">
                             <span style="width: 126px;">
                                 <a href="{% url 'employee_detail' pk=item.id %}"
-                                   class="btn m-btn--pill btn-outline-warning">
-                                    <span>
-                                        <i class="la la-edit"></i>
-                                    </span>
+                                   class="{{ 'edit'|button_class }}">
+                                    <i class="la la-edit"></i>
                                 </a>
-                                <a href="{% url 'employee_detail' pk=item.id %}"
-                                   class="btn m-btn--pill btn-outline-danger">
-                                    <span>
-                                        <i class="la la-remove"></i>
-                                    </span>
+                                <a onclick="return confirm('Are you sure?')"
+                                   href="{% url 'employee_detail' pk=item.id %}"
+                                   class="{{ 'delete'|button_class }}">
+                                    <i class="fa flaticon-circle"></i>
                                 </a>
                             </span>
                         </td>

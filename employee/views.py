@@ -93,6 +93,10 @@ def employee_detail(request, pk=None):
             return redirect('employee_detail', pk)
     else:
         form = EmployeeForm(instance=employee)
+    if employee.image:
+        employee.user_image = employee.image.url
+    else:
+        employee.user_image = 'https://www.w3schools.com/howto/img_avatar.png'
 
     context = {
         "employee": employee,

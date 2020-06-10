@@ -2,6 +2,39 @@
 {% block page_content %}
 {% load static %}
 {% load myapptags %}
+<script>
+    {% block jquery %}
+       $(document).ready(function() {
+            $(".input-group").hide();
+            $("#picture_change").click(function() {
+                $(".input-group").show();
+            });
+            $(".cancel").click(function() {
+                $(".input-group").hide();
+            });
+            var brand = document.getElementById('id_image');
+            brand.className = 'attachment_upload';
+            brand.onchange = function() {
+                document.getElementById('fakeUploadLogo').value = this.value.substring(12);
+            };
+
+            // Source: http://stackoverflow.com/a/4459419/6396981
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('.img-preview').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#id_image").change(function() {
+                readURL(this);
+            });
+        });
+    {% endblock %}
+</script>
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
         <div class="mr-auto">
@@ -81,43 +114,17 @@
                     {{ form.about }}
                 </div>
                 <div class="form-group m-form__group col-md-6">
-                    {{ form.image.errors }}
-                    <label for="{{ form.image.id_for_label }}">Picture</label>
-                    {{ form.image }}
-                    {% if employee.image %}
-                    <a href="{{ employee.image.url }}" target="_blank">
-                        <div class="avatar">
-                            <img src="{{ employee.image.url }}" alt=""
-                                 style="padding-top: 2%;width: 100%;border-radius: 2%;">
-                        </div>
-                    </a>
-                    {% endif %}
+                    {{ form.status.errors }}
+                    <label for="{{ form.status.id_for_label }}">Status</label>
+                    {{ form.status }}
                 </div>
-                <!--<div class="form-group m-form__group col-md-6">
-                    <label class="col-form-label col-lg-3 col-sm-12">
-                        Single File Upload
-                    </label>
-                    <div class="col-lg-4 col-md-9 col-sm-12">
-                        <div class="m-dropzone dropzone" action="inc/api/dropzone/upload.php" id="m-dropzone-one">
-                            <div class="m-dropzone__msg dz-message needsclick">
-                                <h3 class="m-dropzone__msg-title">
-                                    Drop files here or click to upload.
-                                </h3>
-                                <span class="m-dropzone__msg-desc">
-                                    This is just a demo dropzone. Selected files are
-                                    <strong>
-                                        not
-                                    </strong>
-                                    actually uploaded.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
+                <div class="form-group m-form__group col-md-6">
+                    {% include "image.html" %}
+                </div>
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
                 <div class="m-form__actions">
-                    <a href="{% url 'employee_index' %}" class="{{ 'back'|button }}">
+                    <a href="{% url 'employee_index' %}" class="{{ 'back'|button_class }}">
                         <div class="m-demo-icon__preview"><i class="fa fa-chevron-left"></i></div>
                     </a>
                     <button type="submit" class="btn btn-brand">Submit</button>
@@ -126,5 +133,4 @@
         </form>
     </div>
 </div>
-
 {% endblock %}
