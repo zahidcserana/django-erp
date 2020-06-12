@@ -131,14 +131,11 @@
                     <tr class="m-datatable__row" style="left: 0px;">
                         <th data-field="RecordID"
                             class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
-				<span style="width: 50px;">
-					<label
-                            class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
-						<input
-                                type="checkbox">
-							<span></span>
-						</label>
-					</span>
+                            <span style="width: 50px;">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                    <input type="checkbox"><span></span>
+                                </label>
+                            </span>
                         </th>
                         <th data-field="OrderID" class="m-datatable__cell m-datatable__cell--sort">
                             <span style="width: 126px;">EMP ID</span>
@@ -153,15 +150,13 @@
                             <span style="width: 126px;">Address</span>
                         </th>
                         <th data-field="Type" class="m-datatable__cell m-datatable__cell--sort">
-					<span
-                            style="width: 126px;">Type</span>
+                            <span style="width: 126px;">Designation</span>
                         </th>
                         <th data-field="Status" class="m-datatable__cell m-datatable__cell--sort">
                             <span style="width: 126px;">Status</span>
                         </th>
                         <th data-field="ShipAddress" class="m-datatable__cell m-datatable__cell--sort">
-					<span
-                            style="width: 126px;">about</span>
+                            <span style="width: 126px;">about</span>
                         </th>
                         <th data-field="ShipDate" class="m-datatable__cell m-datatable__cell--sort">
                             <span style="width: 126px;">Created</span>
@@ -173,18 +168,14 @@
                     </thead>
                     <tbody class="m-datatable__body" style="">
                     {% for item in data %}
-
                     <tr data-row="0" class="m-datatable__row m-datatable__row--even" style="left: 0px;">
                         <td data-field="RecordID"
                             class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
-					<span style="width: 50px;">
-						<label
-                                class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
-							<input
-                                    type="checkbox" value="54">
-								<span></span>
-							</label>
-						</span>
+                            <span style="width: 50px;">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
+                                    <input type="checkbox" value="54"><span></span>
+                                </label>
+                            </span>
                         </td>
                         <td data-field="OrderID" class="m-datatable__cell--sorted m-datatable__cell">
                             <span style="width: 126px;">{{ item.id }}</span>
@@ -199,17 +190,14 @@
                             <span style="width: 126px;">{{ item.address }}</span>
                         </td>
                         <td data-field="Type" class="m-datatable__cell">
-						<span style="width: 126px;">
-							<span
-                                    class="m-badge m-badge--primary m-badge--dot"></span>&nbsp;
-							<span
-                                    class="m--font-bold m--font-primary">{{ item.designation }}</span>
-						</span>
+                            <span style="width: 126px;"><span class="m-badge m-badge--primary m-badge--dot"></span>&nbsp;
+                                <span class="m--font-bold m--font-primary">{{ item.designation }}</span>
+                            </span>
                         </td>
                         <td data-field="Status" class="m-datatable__cell">
-						<span style="width: 126px;">
-							<span class="{{ item.status|status_class }}">{{ item.status }}</span>
-						</span>
+                            <span style="width: 126px;">
+                                <span class="{{ item.status|status_class }}">{{ item.status }}</span>
+                            </span>
                         </td>
                         <td data-field="Currency" class="m-datatable__cell">
                             <span style="width: 100px;">{{ item.about | slice:":100" }}...</span>
@@ -324,37 +312,6 @@
                     </div>
                 </div>
                 {% endif %}
-
-                <!--{% if data.has_other_pages %}
-                <ul class="pagination">
-                    {% if data.has_previous %}
-                    <li class="page-item"><a class="page-link" href="?page={{ data.previous_page_number }}">&laquo;</a>
-                    </li>
-                    {% else %}
-                    <li class="page-link disabled"><span>&laquo;</span></li>
-                    {% endif %}
-
-                    {% for i in data.paginator.page_range %}
-                    {% if data.number == i %}
-                    <li style="background: #2da78e" class="active page-link"><span>{{ i }} <span
-                            class="sr-only">(current)</span></span></li>
-                    {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-
-                    {% if data.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ data.next_page_number }}">&raquo;</a></li>
-                    {% else %}
-                    <li class="page-link disabled"><span>&raquo;</span></li>
-                    {% endif %}
-                </ul>
-                {% endif %}
-                <div style="float: right">
-                    <span class="current">
-                        Page {{ data.number }} of {{ data.paginator.num_pages }}.
-                    </span>
-                </div>-->
             </div>
         </div>
     </div>

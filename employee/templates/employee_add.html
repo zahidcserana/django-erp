@@ -1,6 +1,41 @@
 {% extends "base.html" %}
 {% block page_content %}
-{% load myapptags %}
+<script>
+    {% block jquery %}
+       $(document).ready(function() {
+            $(".input-group").hide();
+            $("#picture_change").click(function() {
+                $(".input-group").show();
+            });
+            $(".cancel").click(function() {
+                $(".input-group").hide();
+            });
+            var brand = document.getElementById('id_image');
+            brand.className = 'attachment_upload';
+            brand.onchange = function() {
+                document.getElementById('fakeUploadLogo').value = this.value.substring(12);
+            };
+
+            // Source: http://stackoverflow.com/a/4459419/6396981
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('.img-preview').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#id_image").change(function() {
+                readURL(this);
+            });
+        });
+    {% endblock %}
+
+
+</script>
+
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
         <div class="mr-auto">
@@ -50,43 +85,9 @@
 <!-- END: Subheader -->
 <div class="m-content">
     <div class="m-portlet m-portlet--tab">
-        <form class="m-form m-form--fit m-form--label-align-right" action="/employee/add" method="post">
-            <div class="m-portlet__body row">
-                {% csrf_token %}
-                <div class="form-group m-form__group col-md-6">
-                    {{ form.name.errors }}
-                    <label for="{{ form.name.id_for_label }}">Name</label>
-                    {{ form.name }}
-                </div>
-                <div class="form-group m-form__group col-md-6">
-                    {{ form.email.errors }}
-                    <label for="{{ form.email.id_for_label }}">Email</label>
-                    {{ form.email }}
-                </div>
-                <div class="form-group m-form__group col-md-6">
-                    {{ form.mobile.errors }}
-                    <label for="{{ form.mobile.id_for_label }}">Mobile</label>
-                    {{ form.mobile }}
-                </div>
-                <div class="form-group m-form__group col-md-6">
-                    {{ form.address.errors }}
-                    <label for="{{ form.address.id_for_label }}">Address</label>
-                    {{ form.address }}
-                </div>
-                <div class="form-group m-form__group col-md-6">
-                    {{ form.about.errors }}
-                    <label for="{{ form.about.id_for_label }}">About</label>
-                    {{ form.about }}
-                </div>
-            </div>
-            <div class="m-portlet__foot m-portlet__foot--fit">
-                <div class="m-form__actions">
-                    <a href="{% url 'employee_index' %}" class="{{ 'back'|button_class }}">
-                        <div class="m-demo-icon__preview"><i class="fa fa-chevron-left"></i></div>
-                    </a>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
-            </div>
+        <form class="m-form m-form--fit m-form--label-align-right" action="/employee/add" method="post"
+              enctype="multipart/form-data">
+            {% include "form_employee.html" %}
         </form>
     </div>
 </div>

@@ -27,7 +27,7 @@ def employee_index(request):
         employees = Employee.objects.all()
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(employees, 2)
+    paginator = Paginator(employees, 10)
     try:
         data = paginator.page(page)
     except PageNotAnInteger:
@@ -55,9 +55,8 @@ def employee_index(request):
 
 
 def employee_add(request):
-    form = EmployeeForm()
     if request.method == 'POST':
-        form = EmployeeForm(request.POST)
+        form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             employee = Employee(
                 name=form.cleaned_data["name"],
@@ -65,12 +64,18 @@ def employee_add(request):
                 mobile=form.cleaned_data["mobile"],
                 address=form.cleaned_data["address"],
                 about=form.cleaned_data["about"],
+                department=form.cleaned_data["department"],
+                designation=form.cleaned_data["designation"],
             )
+            if request.FILES:
+                employee.image = request.FILES['image']
             employee.save()
             return redirect('employee_index')
-
+    else:
+        form = EmployeeForm()
     context = {
         "form": form,
+        'user_image': 'https://www.w3schools.com/howto/img_avatar.png'
     }
     return render(request, "employee_add.html", context)
 
@@ -85,6 +90,8 @@ def employee_detail(request, pk=None):
             employee.mobile = form.cleaned_data["mobile"]
             employee.address = form.cleaned_data["address"]
             employee.about = form.cleaned_data["about"]
+            employee.department = form.cleaned_data["department"]
+            employee.designation = form.cleaned_data["designation"]
             if request.FILES:
                 employee.image = request.FILES['image']
             employee.save()
@@ -93,13 +100,13 @@ def employee_detail(request, pk=None):
             return redirect('employee_detail', pk)
     else:
         form = EmployeeForm(instance=employee)
+    user_image = 'https://www.w3schools.com/howto/img_avatar.png'
     if employee.image:
-        employee.user_image = employee.image.url
-    else:
-        employee.user_image = 'https://www.w3schools.com/howto/img_avatar.png'
+            user_image = employee.image.url
 
     context = {
         "employee": employee,
         "form": form,
+        "user_image": user_image,
     }
     return render(request, "employee_detail.html", context)

@@ -1,5 +1,7 @@
 from django import forms
 
+from department.models import Department
+from designation.models import Designation
 from employee.models import Employee
 
 
@@ -46,12 +48,29 @@ class EmployeeForm(forms.ModelForm):
     )
     Statuses = (('ACTIVE', 'Active'), ('INACTIVE', 'Inactive'),)
     status = forms.ChoiceField(
+        error_messages={
+            'required': "Please Select a Status."
+        },
         widget=forms.Select(attrs={
             "class": "form-control m-input m-input--air m-input--pill",
         }),
         choices=Statuses
     )
+    department = forms.ModelChoiceField(
+        queryset=Department.objects.all(),
+        empty_label="-Select-",
+        widget=forms.Select(attrs={
+            "class": "form-control m-input m-input--air m-input--pill",
+        })
+    )
+    designation = forms.ModelChoiceField(
+        queryset=Designation.objects.all(),
+        empty_label="-Select-",
+        widget=forms.Select(attrs={
+            "class": "form-control m-input m-input--air m-input--pill",
+        })
+    )
 
     class Meta:
         model = Employee
-        fields = ['name', 'email', 'mobile', 'address', 'about', 'image', 'status']
+        fields = ['name', 'email', 'mobile', 'address', 'about', 'image', 'status', 'department','designation']

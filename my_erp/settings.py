@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'commontag',
     'dashboard',
     'employee',
-    'department'
+    'department',
+    'designation'
 ]
 
 MIDDLEWARE = [
