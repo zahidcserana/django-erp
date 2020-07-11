@@ -2,9 +2,13 @@
 {% block page_content %}
 {% load static %}
 {% load myapptags %}
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
 <script>
     {% block jquery %}
        $(document).ready(function() {
+            $("#change_password_div").show();
+            $("#password_div").css('display', 'none');
 
             $("#change_password").click(function() {
                 $("#password_div").show();
@@ -40,7 +44,6 @@
             });
         });
     {% endblock %}
-
 </script>
 <div class="m-subheader ">
     <div class="d-flex align-items-center">

@@ -46,26 +46,18 @@
         <label for="{{ form.image.id_for_label }}">Image</label>
         {% include "image.html" %}
     </div>
-    {% if add %}
+
     <div class="form-group m-form__group col-md-4" id="password_div">
         {{ user_form.password.errors }}
         <label for="{{ user_form.password.id_for_label }}">Password</label>
         {{ user_form.password }}
     </div>
-    {% endif %}
-    {% if not add %}
     <div class="form-group m-form__group col-md-4" id="change_password_div">
-        <a href="javascript:void(0)" id="change_password" class="btn btn-success btn-sm m-btn m-btn m-btn--icon m-btn--pill">
-        <span>
-            <i class="fa flaticon-paper-plane"></i>
-            <span>
-                Change Password
-            </span>
-        </span>
+        <a href="javascript:void(0)" id="change_password"
+           class="btn btn-success btn-sm m-btn m-btn m-btn--icon m-btn--pill">
+            <span><i class="fa flaticon-paper-plane"></i><span>Change Password</span></span>
         </a>
     </div>
-    {% endif %}
-
 </div>
 <div class="m-portlet__foot m-portlet__foot--fit">
     <div class="m-form__actions">

@@ -79,8 +79,11 @@
                                             <select class="form-control m-bootstrap-select m-bootstrap-select--solid"
                                                     id="m_form_type" name="designation">
                                                 <option value="">-- Type --</option>
-                                                <option value="SE">Software Engineer</option>
-                                                <option value="SSE">Senior Software Engineer</option>
+                                                {% for row in designation %}
+                                                <option value="{{row.id}}">
+                                                    {{row.name|capfirst}}
+                                                </option>
+                                                {% endfor %}
                                             </select>
                                         </div>
                                     </div>
@@ -317,6 +320,4 @@
     </div>
 </div>
 {% endblock %}
-
-
 

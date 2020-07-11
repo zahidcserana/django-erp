@@ -5,7 +5,6 @@ from department.models import Department
 from designation.models import Designation
 from employee.models import Employee
 
-
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -22,6 +21,7 @@ class UserForm(forms.ModelForm):
         })
     )
     password = forms.CharField(
+        required=False,
         max_length=20,
         widget=forms.PasswordInput(attrs={
             "class": "form-control m-input m-input--air m-input--pill",

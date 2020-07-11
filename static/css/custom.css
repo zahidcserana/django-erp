@@ -1,3 +1,7 @@
 .avatar {
     width: 213px!important
 }
+select.m-bootstrap-select {
+  opacity: 1!important;
+  filter: alpha(opacity=0) ;
+}

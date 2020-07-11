@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 
+from designation.models import Designation
 from employee.models import Employee
 from employee.forms import EmployeeForm, UserForm
 
@@ -15,10 +16,20 @@ def employee_index(request):
     status = request.GET.get('status')
     designation = request.GET.get('designation')
     if search is not None:
-        employees = Employee.objects.filter(
-            (Q(name__icontains=name) | Q(email__icontains=name)) & Q(status__icontains=status) &
-            Q(designation__icontains=designation)
-        )
+        q = Q()
+        if not name == '':
+            q &= Q(user__username=name) | Q(user__email__icontains=name)
+        if not status == '':
+            q &= Q(status=status)
+        if not designation == '':
+            q &= Q(designation=designation)
+
+        employees = Employee.objects.filter(q)
+        # if name:
+        #     employees = Employee.objects.filter(
+        #     Q(user__username=name) | Q(user__email=name) | Q(status=status) |
+        #     Q(designation=designation)
+        # )
         # conditions = dict()
         # conditions.update(name__icontains=name)
         # conditions.update(status__icontains=status)
@@ -27,17 +38,20 @@ def employee_index(request):
     else:
         employees = Employee.objects.all().select_related('user')
 
-    # print(employees[0].user.email)
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(employees, 10)
+    paginator = Paginator(employees, 5)
     try:
         data = paginator.page(page)
     except PageNotAnInteger:
         data = paginator.page(1)
     except EmptyPage:
         data = paginator.page(paginator.num_pages)
-    return render(request, 'employee_index.html', {'data': data})
+    context = {
+        "data": data,
+        'designation': Designation.objects.all()
+    }
+    return render(request, 'employee_index.html', context)
 
 
 # def employee_index(request):
@@ -102,7 +116,11 @@ def employee_detail(request, pk=None):
 
             # return HttpResponseRedirect('/employee/')
             return redirect('employee_detail', pk)
+        else:
+            print(request.POST.get('password'))
+            print(user_form.errors)
     else:
+        print('not')
         user_form = UserForm(instance=user)
         employee_form = EmployeeForm(instance=employee)
     user_image = 'https://www.w3schools.com/howto/img_avatar.png'
