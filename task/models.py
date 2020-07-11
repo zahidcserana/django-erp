@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Employee(models.Model):
+class Task(models.Model):
     ACTIVE = 'ACTIVE'
     INACTIVE = 'INACTIVE'
     Status = [
@@ -14,20 +14,18 @@ class Employee(models.Model):
         choices=Status,
         default=ACTIVE
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    about = models.TextField()
-    mobile = models.CharField(max_length=20)
-    address = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='employee')
-    department = models.ForeignKey(
-        'department.Department',
-        related_name='departments',
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    description = models.CharField(max_length=255)
+    project = models.ForeignKey(
+        'project.Project',
+        related_name='projects',
         null=True,
         on_delete=models.CASCADE
     )
-    designation = models.ForeignKey(
-        'designation.Designation',
-        related_name='designations',
+    tag = models.ForeignKey(
+        'tag.Tag',
+        related_name='tags',
         null=True,
         on_delete=models.CASCADE
     )
@@ -36,4 +34,4 @@ class Employee(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.name

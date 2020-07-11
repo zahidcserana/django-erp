@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'dashboard',
     'employee',
     'department',
-    'designation'
+    'designation',
+    'project',
+    'tag',
+    'task'
 ]
 
 MIDDLEWARE = [
