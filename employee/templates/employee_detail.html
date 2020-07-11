@@ -5,6 +5,12 @@
 <script>
     {% block jquery %}
        $(document).ready(function() {
+
+            $("#change_password").click(function() {
+                $("#password_div").show();
+                $("#change_password_div").hide();
+            });
+
             $(".input-group").hide();
             $("#picture_change").click(function() {
                 $(".input-group").show();

@@ -3,14 +3,14 @@
 <div class="m-portlet__body row">
     {% csrf_token %}
     <div class="form-group m-form__group col-md-4">
-        {{ form.name.errors }}
-        <label for="{{ form.name.id_for_label }}">Name</label>
-        {{ form.name }}
+        {{ user_form.username.errors }}
+        <label for="{{ user_form.username.id_for_label }}">Username</label>
+        {{ user_form.username }}
     </div>
     <div class="form-group m-form__group col-md-4">
-        {{ form.email.errors }}
-        <label for="{{ form.email.id_for_label }}">Email</label>
-        {{ form.email }}
+        {{ user_form.email.errors }}
+        <label for="{{ user_form.email.id_for_label }}">Email</label>
+        {{ user_form.email }}
     </div>
     <div class="form-group m-form__group col-md-2">
         {{ form.mobile.errors }}
@@ -22,17 +22,17 @@
         <label for="{{ form.status.id_for_label }}">Status</label>
         {{ form.status }}
     </div>
-    <div class="form-group m-form__group col-md-4">
+    <div class="form-group m-form__group col-md-3">
         {{ form.department.errors }}
         <label for="{{ form.department.id_for_label }}">Department</label>
         {{ form.department }}
     </div>
-    <div class="form-group m-form__group col-md-4">
+    <div class="form-group m-form__group col-md-3">
         {{ form.designation.errors }}
         <label for="{{ form.designation.id_for_label }}">Designation</label>
         {{ form.designation }}
     </div>
-    <div class="form-group m-form__group col-md-4">
+    <div class="form-group m-form__group col-md-6">
         {{ form.address.errors }}
         <label for="{{ form.address.id_for_label }}">Address</label>
         {{ form.address }}
@@ -46,6 +46,26 @@
         <label for="{{ form.image.id_for_label }}">Image</label>
         {% include "image.html" %}
     </div>
+    {% if add %}
+    <div class="form-group m-form__group col-md-4" id="password_div">
+        {{ user_form.password.errors }}
+        <label for="{{ user_form.password.id_for_label }}">Password</label>
+        {{ user_form.password }}
+    </div>
+    {% endif %}
+    {% if not add %}
+    <div class="form-group m-form__group col-md-4" id="change_password_div">
+        <a href="javascript:void(0)" id="change_password" class="btn btn-success btn-sm m-btn m-btn m-btn--icon m-btn--pill">
+        <span>
+            <i class="fa flaticon-paper-plane"></i>
+            <span>
+                Change Password
+            </span>
+        </span>
+        </a>
+    </div>
+    {% endif %}
+
 </div>
 <div class="m-portlet__foot m-portlet__foot--fit">
     <div class="m-form__actions">

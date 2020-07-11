@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -20,7 +20,7 @@ def loginpage(request):
         if post:
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                # log_data = login(request, user)
+                login(request, user)
                 return redirect('dashboard_index')
         else:
             return render(request, 'user_login.html', {})
@@ -36,9 +36,6 @@ def profile(request):
         return render(request, 'user_login.html', {})
 
 
-def logout(request):
-    try:
-        del request.session['username']
-    except:
-        pass
+def user_logout(request):
+    logout(request)
     return render(request, 'user_login.html', {})

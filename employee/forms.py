@@ -1,36 +1,52 @@
 from django import forms
+from django.contrib.auth.models import User
 
 from department.models import Department
 from designation.models import Designation
 from employee.models import Employee
 
 
-class EmployeeForm(forms.ModelForm):
-    name = forms.CharField(
-        max_length=255,
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    username = forms.CharField(
         widget=forms.TextInput(attrs={
             "class": "form-control m-input m-input--air m-input--pill",
-            "placeholder": "Your Name"
-        })
-    )
-    mobile = forms.CharField(
-        max_length=20,
-        widget=forms.TextInput(attrs={
-            "class": "form-control m-input m-input--air m-input--pill",
-            "placeholder": "Your Mobile"
+            "placeholder": "Enter Username"
         })
     )
     email = forms.EmailField(
         widget=forms.TextInput(attrs={
             "class": "form-control m-input m-input--air m-input--pill",
-            "placeholder": "Your Email"
+            "placeholder": "Email"
+        })
+    )
+    password = forms.CharField(
+        max_length=20,
+        widget=forms.PasswordInput(attrs={
+            "class": "form-control m-input m-input--air m-input--pill",
+            "placeholder": "Password"
+        })
+    )
+
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'email')
+
+
+class EmployeeForm(forms.ModelForm):
+    mobile = forms.CharField(
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            "class": "form-control m-input m-input--air m-input--pill",
+            "placeholder": "Mobile"
         })
     )
     address = forms.CharField(
         max_length=255,
         widget=forms.TextInput(attrs={
             "class": "form-control m-input m-input--air m-input--pill",
-            "placeholder": "Your Addrress"
+            "placeholder": "Address"
         })
     )
     about = forms.CharField(widget=forms.Textarea(
@@ -73,4 +89,4 @@ class EmployeeForm(forms.ModelForm):
 
     class Meta:
         model = Employee
-        fields = ['name', 'email', 'mobile', 'address', 'about', 'image', 'status', 'department','designation']
+        fields = ['mobile', 'address', 'about', 'image', 'status', 'department', 'designation']
