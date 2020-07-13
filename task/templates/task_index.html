@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+{% block page_content %}
+{% load myapptags %}
+
+<div class="m-subheader ">
+    <div class="d-flex align-items-center">
+        <div class="mr-auto">
+            <h3 class="m-subheader__title m-subheader__title--separator">
+                Dashboard
+            </h3>
+            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                <li class="m-nav__item m-nav__item--home">
+                    <a href="#" class="m-nav__link m-nav__link--icon">
+                        <i class="m-nav__link-icon la la-home"></i>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            Dashboard
+                        </span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            Manage Orders
+                        </span>
+                    </a>
+                </li>
+                <li class="m-nav__separator">
+                    -
+                </li>
+                <li class="m-nav__item">
+                    <a href="" class="m-nav__link">
+                        <span class="m-nav__link-text">
+                            Latest Orders
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+    <div class="m-portlet m-portlet--mobile">
+
+        <div class="m-portlet__body">
+            <!--begin: Search Form -->
+            <form style="flex: 1" action="{% url 'task_index' %}" method="get">
+                <input type="hidden" class="form-control m-input m-input--solid" name="search" value="1">
+                <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
+                    <div class="row align-items-center">
+                        <div class="col-xl-8 order-2 order-xl-1">
+                            <div class="form-group m-form__group row align-items-center">
+                                <div class="col-md-2">
+                                    <div class="m-form__group m-form__group--inline" style="width: 100%">
+                                        <div class="m-form__control">
+                                            <select class="form-control m-bootstrap-select m-bootstrap-select--solid"
+                                                    id="m_form_status" name="status">
+                                                <option value="">- Status -</option>
+                                                {% for key, value in status.items %}
+                                                <option value="{{ key }}">{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="m-form__group m-form__group--inline" style="width: 100%">
+                                        <div class="m-form__control">
+                                            <select class="form-control m-bootstrap-select m-bootstrap-select--solid"
+                                                    id="m_form_type" name="project">
+                                                <option value="">-- Project --</option>
+                                                {% for row in project %}
+                                                <option value="{{row.id}}">
+                                                    {{row.name|capfirst}}
+                                                </option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none m--margin-bottom-10"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="m-input-icon m-input-icon--left">
+                                        <select class="form-control m-bootstrap-select m-bootstrap-select--solid"
+                                                id="m_form_tag" name="tag">
+                                            <option value="">-- Tag --</option>
+                                            {% for row in tag %}
+                                            <option value="{{row.id}}">
+                                                {{row.name|capfirst}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit"
+                                            class="btn btn-info m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+                                        Search
+                                    </button>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="{% url 'task_index' %}"
+                                       class="btn btn-danger m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">Reset</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 order-1 order-xl-2 m--align-right">
+                            <a href="{% url 'task_add' %}"
+                               class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--aadminir m-btn--pill">
+                                <span>
+                                    <i class="la la-cart-plus"></i>
+                                    <span>New Task</span>
+                                </span>
+                            </a>
+                            <div class="m-separator m-separator--dashed d-xl-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="m-datatable m-datatable--default m-datatable--brand m-datatable--loaded" id="">
+                <table class="m-datatable__table" style="display: block; min-height: 300px; overflow-x: auto;">
+                    <thead class="m-datatable__head">
+                    <tr class="m-datatable__row" style="left: 0px;">
+                        <th data-field="RecordID"
+                            class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
+                            <span style="width: 50px;">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--all m-checkbox--solid m-checkbox--brand">
+                                    <input type="checkbox"><span></span>
+                                </label>
+                            </span>
+                        </th>
+                        <th data-field="OrderID" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 70px;">EMP ID</span>
+                        </th>
+                        <th data-field="ShipName" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 126px;">User</span>
+                        </th>
+                        <th data-field="Latitude" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 126px;">Project</span>
+                        </th>
+                        <th data-field="Latitude" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 126px;">Tag</span>
+                        </th>
+                        <th data-field="Type" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 126px;">Description</span>
+                        </th>
+                        <th data-field="Status" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 126px;">Status</span>
+                        </th>
+                        <th data-field="ShipDate" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 126px;">Created</span>
+                        </th>
+                        <th data-field="Actions" class="m-datatable__cell m-datatable__cell--sort">
+                            <span style="width: 110px;">Actions</span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="m-datatable__body" style="">
+                    {% for item in data %}
+                    <tr data-row="0" class="m-datatable__row m-datatable__row--even" style="left: 0px;">
+                        <td data-field="RecordID"
+                            class="m-datatable__cell--center m-datatable__cell m-datatable__cell--check">
+                            <span style="width: 50px;">
+                                <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
+                                    <input type="checkbox" value="54"><span></span>
+                                </label>
+                            </span>
+                        </td>
+                        <td data-field="OrderID" class="m-datatable__cell--sorted m-datatable__cell">
+                            <span style="width: 50px;">{{ item.id }}</span>
+                        </td>
+                        <td data-field="ShipName" class="m-datatable__cell">
+                            <span style="width: 126px;">
+                                <a href="{% url 'employee_detail' pk=item.user.employee.id %}">{{ item.user.username }}</a>
+                            </span>
+                        </td>
+                        <td data-field="ShipDate" class="m-datatable__cell">
+                            <span style="width: 126px;">{{ item.project.name }}</span>
+                        </td>
+                        <td data-field="Latitude" class="m-datatable__cell">
+                            <span style="width: 126px;">{{ item.tag.name }}</span>
+                        </td>
+                        <td data-field="Currency" class="m-datatable__cell">
+                            <span style="width: 126px;">{{ item.description | slice:":10" }}...</span>
+                        </td>
+                        <td data-field="Status" class="m-datatable__cell">
+                            <span style="width: 126px;">
+                                <span class="{{ item.status|status_class }}">{{ item.status }}</span>
+                            </span>
+                        </td>
+                        <td data-field="ShipAddress" class="m-datatable__cell">
+                            <span style="width: 126px;">{{ item.created_on.date }}</span>
+                        </td>
+                        <td data-field="Actions" class="m-datatable__cell">
+                            <span style="width: 110px;">
+                                <a href="{% url 'task_detail' pk=item.id %}"
+                                   class="{{ 'edit'|button_class }}">
+                                    <i class="la la-edit"></i>
+                                </a>
+                                <a onclick="return confirm('Are you sure?')"
+                                   href="{% url 'task_detail' pk=item.id %}"
+                                   class="{{ 'delete'|button_class }}">
+                                    <i class="fa flaticon-circle"></i>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+
+                {% if data.has_other_pages %}
+                <div class="m-datatable__pager m-datatable--paging-loaded clearfix">
+                    <ul class="m-datatable__pager-nav pagination">
+                        {% if data.number == 1 %}
+                        <li>
+                            <a title="First"
+                               class="m-datatable__pager-link m-datatable__pager-link--first disabled" data-page="1">
+                                <i class="la la-angle-double-left"></i>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a title="First"
+                               class="m-datatable__pager-link m-datatable__pager-link--first"
+                               href="?page=1" data-page="1"><i class="la la-angle-double-left"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% if data.has_previous %}
+                        <li>
+                            <a href="?page={{ data.previous_page_number }}" title="Previous"
+                               class="m-datatable__pager-link m-datatable__pager-link--prev"
+                               data-page="{{ data.previous_page_number }}"><i class="la la-angle-left"></i>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="m-datatable__pager-link m-datatable__pager-link--prev disabled">
+                            <i class="la la-angle-left"></i>
+                        </li>
+                        {% endif %}
+
+                        {% for i in data.paginator.page_range %}
+                        {% if data.number == i %}
+                        <li>
+                            <a class="page-item m-datatable__pager-link m-datatable__pager-link-number m-datatable__pager-link--active"
+                               data-page="{{ i }}" title="{{ i }}">{{ i }}<span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="?page={{ i }}"
+                               class="page-item m-datatable__pager-link m-datatable__pager-link-number"
+                               data-page="{{ i }}"
+                               title="{{ i }}">{{ i }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if data.has_next %}
+                        <li>
+                            <a href="?page={{ data.next_page_number }}" title="Next"
+                               class="m-datatable__pager-link m-datatable__pager-link--next"
+                               data-page="{{ data.next_page_number }}">
+                                <i class="la la-angle-right"></i>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="m-datatable__pager-link m-datatable__pager-link--next disabled">
+                            <i class="la la-angle-right"></i>
+                        </li>
+                        {% endif %}
+
+                        {% if data.number == data.paginator.num_pages %}
+                        <li>
+                            <a title="Last"
+                               class="m-datatable__pager-link m-datatable__pager-link--last disabled"
+                               data-page="{{ data.paginator.num_pages }}"><i class="la la-angle-double-right"></i>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="?page={{ data.paginator.num_pages }}" title="Last"
+                               class="m-datatable__pager-link m-datatable__pager-link--last"
+                               data-page="10"><i class="la la-angle-double-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <div class="m-datatable__pager-info">
+                        <span class="m-datatable__pager-detail current">
+                            Page {{ data.number }} of {{ data.paginator.num_pages }}.
+                        </span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

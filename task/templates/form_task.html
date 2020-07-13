@@ -1,0 +1,33 @@
+{% load myapptags %}
+
+<div class="m-portlet__body row">
+    {% csrf_token %}
+    <div class="form-group m-form__group col-md-4">
+        {{ form.project.errors }}
+        <label for="{{ form.project.id_for_label }}">Project</label>
+        {{ form.project }}
+    </div>
+    <div class="form-group m-form__group col-md-4">
+        {{ form.tag.errors }}
+        <label for="{{ form.tag.id_for_label }}">Tag</label>
+        {{ form.tag }}
+    </div>
+    <div class="form-group m-form__group col-md-4">
+        {{ form.status.errors }}
+        <label for="{{ form.status.id_for_label }}">Status</label>
+        {{ form.status }}
+    </div>
+    <div class="form-group m-form__group col-md-6">
+        {{ form.description.errors }}
+        <label for="{{ form.description.id_for_label }}">Description</label>
+        {{ form.description }}
+    </div>
+</div>
+<div class="m-portlet__foot m-portlet__foot--fit">
+    <div class="m-form__actions">
+        <a href="{% url 'task_index' %}" class="{{ 'back'|button_class }}">
+            <div class="m-demo-icon__preview"><i class="fa fa-chevron-left"></i></div>
+        </a>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+</div>

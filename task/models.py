@@ -4,9 +4,17 @@ from django.db import models
 
 class Task(models.Model):
     ACTIVE = 'ACTIVE'
+    HOLD = 'HOLD'
+    IN_PROGRESS = 'IN PROGRESS'
+    COMPLETE = 'COMPLETE'
+    ARCHIVE = 'ARCHIVE'
     INACTIVE = 'INACTIVE'
     Status = [
         (ACTIVE, 'Active'),
+        (HOLD, 'Hold'),
+        (IN_PROGRESS, 'In Progress'),
+        (COMPLETE, 'Complete'),
+        (ARCHIVE, 'archive'),
         (INACTIVE, 'Inactive'),
     ]
     status = models.CharField(
@@ -14,9 +22,9 @@ class Task(models.Model):
         choices=Status,
         default=ACTIVE
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
 
-    description = models.CharField(max_length=255)
+    description = models.TextField()
     project = models.ForeignKey(
         'project.Project',
         related_name='projects',

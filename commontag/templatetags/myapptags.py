@@ -23,3 +23,16 @@ def status_class(value):
         return 'm-badge m-badge--success m-badge--wide'
     if value == 'INACTIVE':
         return 'm-badge m-badge--warning m-badge--wide'
+
+
+@register.filter(name='status_task')
+def status_task():
+    Statuses = {
+        'ACTIVE': 'Active',
+        'HOLD': 'Hold',
+        'IN_PROGRESS': 'In Progress',
+        'COMPLETE': 'Complete',
+        'ARCHIVE': 'archive',
+        'INACTIVE': 'Inactive'
+    }
+    return Statuses
