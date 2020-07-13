@@ -32,7 +32,7 @@ def department_index(request):
         "data": data,
     }
 
-    return render(request, 'designation_index.html', context)
+    return render(request, 'department_index.html', context)
 
 
 def department_delete(request, pk=None):
