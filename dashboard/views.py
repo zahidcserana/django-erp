@@ -3,9 +3,24 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
+from department.models import Department
+from employee.models import Employee
+from project.models import Project
+from task.models import Task
+
 
 def dashboard_index(request):
-    return render(request, 'dashboard_index.html')
+    total = {}
+    total['employee'] = Employee.objects.all().count()
+    total['department'] = Department.objects.all().count()
+    total['project'] = Project.objects.all().count()
+    total['task'] = Task.objects.all().count()
+
+    context = {
+        "total": total,
+    }
+
+    return render(request, 'dashboard_index.html', context)
 
 
 def user_login(request):

@@ -13,6 +13,17 @@ def button_class(value):
         return 'btn btn-success m-btn m-btn--icon btn-sm m-btn--icon-only'
     if value == 'delete':
         return 'btn btn-danger m-btn m-btn--icon btn-sm m-btn--icon-only'
+    if value == 'menu_help':
+        return 'm-menu__link-icon flaticon-info'
+    if value == 'menu_technology':
+        return 'm-menu__link-icon flaticon-technology'
+    if value == 'menu_sales':
+        return 'm-menu__link-icon flaticon-clipboard'
+    if value == 'menu_suitcase':
+        return 'm-menu__link-icon flaticon-suitcase'
+    if value == 'menu_graphic':
+        return 'm-menu__link-icon flaticon-graphic'
+
     return 'btn m-btn m-btn--gradient-from-danger m-btn--gradient-to-warning'
 
 
