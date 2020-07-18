@@ -33,6 +33,10 @@ def status_class(value):
     if value == 'ACTIVE':
         return 'm-badge m-badge--success m-badge--wide'
     if value == 'INACTIVE':
+        return 'm-badge m-badge--danger m-badge--wide'
+    if value == 'IN_PROGRESS':
+        return 'm-badge m-badge--info m-badge--wide'
+    if value == 'COMPLETE':
         return 'm-badge m-badge--warning m-badge--wide'
 
 
