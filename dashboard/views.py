@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
@@ -32,6 +32,14 @@ def loginpage(request):
         username = request.POST['username']
         password = request.POST['password']
         post = User.objects.filter(username=username)
+
+        # try:
+        #     user = get_user_model().objects.get(username=username)
+        # except:
+        #     return "User could not be found"
+        # user.set_password(password)
+        # user.save()
+
         if post:
             user = authenticate(request, username=username, password=password)
             if user is not None:
