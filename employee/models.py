@@ -10,7 +10,7 @@ class Employee(models.Model):
         (INACTIVE, 'Inactive'),
     ]
     status = models.CharField(
-        max_length=10,
+        max_length=255,
         choices=Status,
         default=ACTIVE
     )

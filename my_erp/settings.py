@@ -85,12 +85,12 @@ DATABASES = {
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'erp1',
-        'USER': 'zahid',
-        'PASSWORD': 'zahidcse',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'erp',
+        'USER': 'postgres',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
@@ -139,3 +139,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/signin/'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

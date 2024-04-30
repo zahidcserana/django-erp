@@ -9,7 +9,7 @@ class Designation(models.Model):
         (INACTIVE, 'Inactive'),
     ]
     status = models.CharField(
-        max_length=20,
+        max_length=255,
         choices=Status,
         default=ACTIVE
     )
